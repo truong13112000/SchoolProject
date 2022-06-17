@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<div class="container">
+@{
+    if ( @HttpContextAccessor.HttpContext.Session.GetString("UserName") != null)
+    {
+        <div id="AlertBox" class="alert alert-success" role="alert">
+            @ViewBag.success
+        </div>
+    }
+}
+<h3>Wellcome @HttpContextAccessor.HttpContext.Session.GetString("UserName")</h3>
+<div class="form-group-row ">
+    <a asp-controller="Home" asp-action="EditInfo">
+        <input type="button" value="Edit Your Info" class="btn btn-outline-info" />
+    </a>
+</div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(function() {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+
+    </script>
+}

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SchoolProject.Models.DepartmentEntities>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Department</h1>
+        <br />
+        @{
+            if (@ViewBag.success != null)
+            {
+                <div id="AlertBox" class="alert alert-success" role="alert">
+                    @ViewBag.success
+                </div>
+            }
+        }
+<p>
+    <a asp-action="Create"  class="btn btn-success">Add New Department</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SchoolId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchoolId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+                
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+        <script>
+        $(function() {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+
+    </script>
+    }
+
+<style>
+    table {
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    th {
+        color: green;
+    }
+
+    td {
+        word-wrap: break-word;
+        white-space: nowrap;
+        width: 750px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>

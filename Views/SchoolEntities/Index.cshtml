@@ -1,0 +1,94 @@
+﻿@model IEnumerable<SchoolProject.Models.SchoolEntities>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>School</h1>
+        <br />
+        @{
+            if (@ViewBag.success != null)
+            {
+                <div id="AlertBox" class="alert alert-success" role="alert">
+                    @ViewBag.success
+                </div>
+            }
+        }
+<p>
+    <a asp-action="Create" class="btn btn-success" >Add new school</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SchoolName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FoundedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchoolName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoundedTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+        <script>
+        $(function() {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+
+    </script>
+    }
+<style>
+    table {
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    th {
+        color: green;
+    }
+
+    td {
+        word-wrap: break-word;
+        white-space: nowrap;
+        width: 550px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
